@@ -1,31 +1,103 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">List</a>
-  </div>
-</nav>
-<div class="container"></div><br>
 <div class="container">
-<table class="table table-striped table-bordered table-sm row-border hover" id="datatableexample">
-  <thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Name</th>
-      <th scope="col">CountryCode</th>
-      <th scope="col">CountryCode3</th>
-      <th scope="col">Native Country Name</th>
-      <th scope="col">Alternative Country Name</th>
+  <div class="row">
+    <div class="col-md-12 py-4 text-center">
+      <h1>List of Countries</h1>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-12 py-4">
+      <table
+        class="table table-striped table-bordered table-sm row-border hover"
+        id="datatableexample"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">CountryCode</th>
+            <th scope="col">CountryCode3</th>
+            <th scope="col">Native Country Name</th>
+            <th scope="col">Alternative Country Name</th>
+            <th scope="col">Country Calling Codes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <th scope="row">
+              <img src="{{ item.flags.png }}" width="100px;height:100px" />
+            </th>
+            <td (click)="showModal(targetModal, item)" style="cursor: pointer">
+              {{ item.name.official }}
+            </td>
+            <td>{{ item.cca2 }}</td>
+            <td>{{ item.cca3 }}</td>
+            <td>{{ item.name.nativeName | json }}</td>
+            <td>{{ item.altSpellings }}</td>
+            <td>{{ item.altSpellings }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of data;let i = index">
-      <th scope="row">{{ i+1 }}</th>
-      <td (click)="showModal()">{{ item.name.official }}</td>
-      <td>{{ item.cca2 }}</td>
-      <td>{{ item.cca3 }}</td>
-      <td>{{ item.name.nativeName | json }}</td>
-      <td>{{ item.altSpellings }}</td>
-    </tr>
-  </tbody>
-</table>
+    <ng-template #targetModal let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProfileLabel">View Details</h5>
+        <button
+          type="button"
+          class="close"
+          (click)="modal.dismiss()"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="col-sm-6">
+        <table
+          class="table table-striped "
+
+        >
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Image</th>
+              <th scope="col">Name</th>
+              <th scope="col">CC2</th>
+              <th scope="col">CC3</th>
+              <th scope="col">Native Country Name</th>
+              <th scope="col">Alternative Country Name</th>
+              <th scope="col">Country Calling Codes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <th scope="row">
+                <img src="{{ allData.flags.png }}" width="100px;height:100px" />
+              </th>
+              <td>{{ allData.name.official }}</td>
+              <td>{{ allData.cca2 }}</td>
+              <td>{{ allData.cca3 }}</td>
+              <td>{{ allData.name.nativeName | json }}</td>
+              <td>{{ allData.altSpellings }}</td>
+              <td>{{ allData.altSpellings }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss()"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
 </div>
